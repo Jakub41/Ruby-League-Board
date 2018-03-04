@@ -16,7 +16,7 @@ class SoccerLeagueBoard
 
   def parse_games_imput(file_name)
     games = []
-    File.open("sample-input.txt", "rb") do |file|
+    File.open(file_name, "rb") do |file|
       file.each_line do |line|
         games << line.strip.plit('.').map {
           |entry| [entry.delete(entry.split(' ').last).strip, entry.split(' ').last]
