@@ -11,7 +11,7 @@ class SoccerLeagueBoard
     end
     games = parse_games_input(file_name)
     results = calculate_games_result(games)
-    generate_output_file(results)
+    generate_output(results)
   end
 
   def parse_games_imput(file_name)
@@ -44,19 +44,19 @@ class SoccerLeagueBoard
     results
   end
 
-  def generate_output_file(results)
-    File.open('output.txt', 'w+') do |f|
-      last_score = ''
-      count = 0
-      results.each_with_index do |result, index|
-        count = last_score == result.last ? count : count + 1
-        output = "#{count}. #{result.first}, #{result.last} pt"
-        output = [output, 's'].join if result.last != 1
-        puts output
-        last_score = result.last
-        f.puts(output)
-      end
+  def generate_output(results)
+    last_score = ''
+    final_results = []
+    count = 0
+    results.each_with_index do |result, index|
+      count = last_score == result.last ? count : count + 1
+      output = "#{count}. #{result.first}, #{result.last} pt"
+      output = [output, 's'].join if result.last != 1
+      puts output
+      final_results << output
+      last_score = result.last
     end
+    final_results
   end
 end
 

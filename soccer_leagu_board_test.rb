@@ -28,6 +28,15 @@ class TestSoccerLeagueBoard < Test::Unit::TestCase
     assert_equal(ranks[2], 'Snakes')
   end
 
+  def test_generate_output
+    games = @soccer_board.parse_games_input(FILE_NAME)
+    results = @soccer_board.calculate_games_result(games)
+    final_results = @soccer_board.generate_output(results)
+    assert_equal(final_results[0], "1. Lions, 2 pts")
+    assert_equal(final_results[1], "2. FC Awesome, 1 pt")
+    assert_equal(final_results[2], "2. Snakes, 1 pt")
+  end
+
   private
 
   def expected_parsed_input
