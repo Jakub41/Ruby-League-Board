@@ -1,7 +1,10 @@
 class SoccerLeagueBoard
   # For debug the code
-  require "byebug"
+  require 'byebug'
 
+  # Get input file name from user until a valid file name is provided. Find the Soccer Team ranking and display it at console
+  # @param [None]
+  # @return [Array] The final results which are displayed at console.
   def calculate_soccer_board
     while true
       puts "Please enter input file name"
@@ -14,6 +17,9 @@ class SoccerLeagueBoard
     generate_output(results)
   end
 
+  # Read input file and perform ETL to setup data into pre-defined structure.
+  # @param file_name [String] from user input on console.
+  # @return [Array] the data from input file is converted into the expected format.
   def parse_games_imput(file_name)
     games = []
     File.open(file_name, "rb") do |file|
@@ -26,6 +32,10 @@ class SoccerLeagueBoard
     end
   end
 
+  # Get games information in a predefined format and calculate the score.
+  # A winner team will get +3 points, a loser team will get 0 points and when a match is draw each team will be awarded by 1 point.
+  # @param games [Array] games data into predefined format.
+  # @return [Hash] the sorted results by number of points
   def calculate_games_results(games)
     results = {}
     games.each do |game|
@@ -44,6 +54,9 @@ class SoccerLeagueBoard
     results
   end
 
+  # Get point based results, calculate ranks and display final results at console.
+  # @param results [Hash] point based results
+  # @return [Array] The final results which are displayed at console.
   def generate_output(results)
     last_score = ''
     final_results = []
