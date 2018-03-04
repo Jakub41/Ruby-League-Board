@@ -2,7 +2,10 @@ class SoccerLeagueBoard
   # For debug the code
   require "byebug"
 
-  def claculate_soccer_board
+  def calculate_soccer_board
+    games= parse_games_imput
+    results = calculate_games_result(games)
+    results = results.sort_by {|k, v| [v, k]}.reverse
 
   end
 
@@ -18,8 +21,23 @@ class SoccerLeagueBoard
     end
   end
 
-  def calculate_games_results()
-
+  def calculate_games_results(games)
+    results = {}
+    games.each do |game|
+      if game.first.last > game.last.last # if draw
+        results[game.first.first] = results[game.first.first].to_i + 3
+        results[game.last.first] = results[game.last.first].to_i + 0
+      elsif game.first.last < game.last.last
+        results[game.first.first] = results[game.first.first].to_i + 0
+        results[game.last.first] = results[game.last.first].to_i + 3
+      else
+        results[game.first.first] = results[game.first.first].to_i + 1
+        results[game.last.first] = results[game.last.first].to_i + 1
+      end
+    end
+    results
   end
-
 end
+
+s = SoccerLeagueBoard.new()
+s.calculate_soccer_board
