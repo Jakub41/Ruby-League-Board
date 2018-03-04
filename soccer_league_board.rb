@@ -3,13 +3,19 @@ class SoccerLeagueBoard
   require "byebug"
 
   def calculate_soccer_board
-    games= parse_games_imput
+    while true
+      puts "Please enter input file name"
+      file_name = gets_chomp
+      break if file.exist?(file_name)
+      puts "ERROR!!! File name #{file_name} is incorrect"
+    end
+    games = parse_games_input(file_name)
     results = calculate_games_result(games)
     results = results.sort_by {|k, v| [v, k]}.reverse
     generate_output_file(results)
   end
 
-  def parse_games_imput
+  def parse_games_imput(file_name)
     games = []
     File.open("sample-input.txt", "rb") do |file|
       file.each_line do |line|
@@ -41,6 +47,8 @@ class SoccerLeagueBoard
     File.open('output.txt', 'w+') do |f|
       results.each_with_index do |result, index|
         output = '#{index+1}. #{result.first}, #{result.last} pt'
+        puts output
+        f.puts(output)
       end
     end
   end
