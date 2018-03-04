@@ -1,5 +1,5 @@
 Thank you for your interest in Weblinc.
-===========================================
+=======================================
 
 This is a small problem that we would like you to solve so that we can get an idea of your coding ability.
 Your submission will be run in a clean environment to see if it produces the expected output.
