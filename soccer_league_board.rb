@@ -6,7 +6,7 @@ class SoccerLeagueBoard
     games= parse_games_imput
     results = calculate_games_result(games)
     results = results.sort_by {|k, v| [v, k]}.reverse
-
+    generate_output_file(results)
   end
 
   def parse_games_imput
@@ -36,6 +36,13 @@ class SoccerLeagueBoard
       end
     end
     results
+  end
+  def generate_output_file(results)
+    File.open('output.txt', 'w+') do |f|
+      results.each_with_index do |result, index|
+        output = '#{index+1}. #{result.first}, #{result.last} pt'
+      end
+    end
   end
 end
 
