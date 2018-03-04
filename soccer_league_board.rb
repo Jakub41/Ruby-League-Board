@@ -40,10 +40,11 @@ class SoccerLeagueBoard
         results[game.last.first] = results[game.last.first].to_i + 1
       end
     end
+    results = results.sort { |(k1, v1), (k2, v2)| [v1, k2] <=> [v2, k1] }.reverse.to_h
     results
   end
+
   def generate_output_file(results)
-    results = results.sort { |(k1, v1), (k2, v2)| [v1, k2] <=> [v2, k1] }.reverse.to_h
     File.open('output.txt', 'w+') do |f|
       last_score = ''
       count = 0
