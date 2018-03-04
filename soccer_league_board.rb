@@ -11,7 +11,6 @@ class SoccerLeagueBoard
     end
     games = parse_games_input(file_name)
     results = calculate_games_result(games)
-    results = results.sort_by {|k, v| [v, k]}.reverse
     generate_output_file(results)
   end
 
@@ -30,7 +29,7 @@ class SoccerLeagueBoard
   def calculate_games_results(games)
     results = {}
     games.each do |game|
-      if game.first.last > game.last.last # if draw
+      if game.first.last > game.last.last
         results[game.first.first] = results[game.first.first].to_i + 3
         results[game.last.first] = results[game.last.first].to_i + 0
       elsif game.first.last < game.last.last
@@ -44,10 +43,16 @@ class SoccerLeagueBoard
     results
   end
   def generate_output_file(results)
+    results = results.sort { |(k1, v1), (k2, v2)| [v1, k2] <=> [v2, k1] }.reverse.to_h
     File.open('output.txt', 'w+') do |f|
+      last_score = ''
+      count = 0
       results.each_with_index do |result, index|
-        output = '#{index+1}. #{result.first}, #{result.last} pt'
+        count = last_score == result.last ? count : count + 1
+        output = "#{count}. #{result.first}, #{result.last} pt"
+        output = [output, 's'].join if result.last != 1
         puts output
+        last_score = result.last
         f.puts(output)
       end
     end
